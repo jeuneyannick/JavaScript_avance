@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>JavaScript par la pratique</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script>
+            // avec Javascript on peut creer des objets à la volée 
+            const vehicule = {
+                id:1, 
+                brand: 'Renault', 
+                model:'Clio', 
+                color: 'Rouge',
+                honk:()=>{
+                    console.log('tuuuuuut')
+                }
+            }
+
+            vehicule.model = 'Benz'; 
+            console.log(vehicule); 
+            console.log(vehicule.honk())
+            //Pour afficher toutes les propriétés d'un objet, utiliser Object.keys
+            const res = Object.keys(vehicule); 
+            res.map((item)=>{
+                console.log(`Voici la clé suivante ${item}`); 
+            }); 
+            //ça retourne un tableau avec toutes les propriétés
+            // la méthode map() fonctionne comme un foreach
+
+            //Pour créer un getter en ecmascript5
+            Object.defineProperty(vehicule, 'summary', {
+                get:function(){
+                    return `Vehicule ${this.brand} model ${this.model} color ${this.color}`;
+                }, 
+                set:function(value){
+                 const caracterics = value.split(','); 
+                 this.brand = caracterics[0], 
+                 this.model = caracterics[1], 
+                 this.color = caracterics[2]
+                }
+            }); 
+            console.log(vehicule.summary) 
+            vehicule.summary = 'Peugeot,206,Bleu'; 
+            console.log(vehicule.summary)
+            // Copie d'un objet en ES5
+            const person = {id:1, firstName: 'Pablo', lastName:'Escobar', job:'NarcoTraficant' }
+            const person2 = Object.assign({},person, { job:'Developpeur', age:27})
+            //Copie d'objet avec ecmascript6
+            // On utilise le spread operator
+            console.log(person2)
+            const person3 = {...person}; 
+            console.log(person3); 
+            const person4 = JSON.parse(JSON.stringify(person)); 
+            console.log(person4); 
+
+            //Imposer des structures à ses objets avec un constructeur 
+            function Vehicle(brand,model,color){
+               this.brand = brand, 
+               this.model = model, 
+               this.color = color
+            }
+
+
+            let Benzo = new Vehicle('Mercesdes-Benz', 'Class A', 'Anthracite')
+            console.log(Benzo); 
+        </script>
+    </body>
+</html>

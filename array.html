@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>JavaScript par la pratique</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script>
+            //Tableau avec des valeurs de plusieurs types 
+            const jesaispas = [1, 'Nigga', true]; 
+            const languages = ['JavaScript', 'PHP', 'Python', 'Ruby', 'Java', 'TypeScript']
+            //Tableau d'objets
+            const TabLanguages = [
+                {
+                    name: 'JavaScript', 
+                    function:'Front-End', 
+                    level:'Medium'
+                }, 
+                {
+                    name: 'PHP', 
+                    function:'Back-End', 
+                    level: 'Medium'
+                }, 
+                {
+                    name:'Python', 
+                    function:'Back-End and Data Visualisation', 
+                    level:'Beginner'
+                }, 
+                {
+                    name:'Ruby', 
+                    function:'Back-End', 
+                    level:'Beginner'
+                }, 
+                {
+                    name:'Java', 
+                    function:'Back-End', 
+                    level:'Beginner'
+                }, 
+                {
+                    name:'TypeScript', 
+                    function:'Back-End', 
+                    level:'Beginner'
+                }
+            ]; 
+
+            //Map()joue un peu le même role que forEach, applique une fonction à tous les éléments du tableau et ressort un tableau
+            const fullLanguages = TabLanguages.map((languages)=> languages.name + ' ' + languages.level); 
+
+            //la méthode filter()prend en paramètre un callback qui sera testé sur chaque élément de l'array, et retournera soit true ou false et fera son tri en fonction
+            //Il retournera un tableau avec uniquement les langages dont le niveau est medium
+            const MediumLanguages = TabLanguages.filter((language) => language.level === `Beginner`); 
+
+            //Pour créer un tableau, utiliser la méthode Array.of() ES6
+
+            let numbers = Array.of(1,2,3); 
+            // pour la destructuration du tableau cad récuperer les valeurs du tableau dans des variables, utiliser cette syntaxe
+            let [one,two,three] = numbers; 
+
+            // la méthode sort()permet de faire un tri par la comparaison des éléments deux par deux suivants la condition qu'on lui met
+
+            //le cas échéant , const classementLangages retourne un tableau avec les langages dans l'ordre alphabétique
+            const classementLangages = TabLanguages.sort((l1, l2) => {
+                if (l1.name > l2.name){
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }); 
+
+
+            function add(){
+                //Array.from transforme en tableaux arguments
+                const args = Array.from(arguments);
+                const doubled = args.map(function(number){
+                  return number * 2; 
+                }); 
+                console.log(doubled); 
+                
+            }; 
+
+            // La méthode reduce() permet de retourner une seule valeur à partir d'un tableau 
+
+            let numb = [1,2,3,4,5,6]; 
+
+           let reduceNumbers = numb.reduce((acc, curr) => {
+                // console.log(`acc`, acc);
+                // console.log(`curr`, curr);
+                return acc + curr; 
+            },1); 
+
+            let panier = [
+                {
+                    id:1,
+                    produit:`Pain`, 
+                    prix:0.90
+                },
+                {
+                    id:2,
+                    produit:`café`, 
+                    prix: 1.50
+                },
+                {
+                    id:3,
+                    produit:`lait`, 
+                    prix:0.50
+                }
+            ]
+
+            let reducePanier = panier.reduce((acc, curr)=> acc + curr.prix, 0);
+            
+            
+        
+        </script>
+    </body

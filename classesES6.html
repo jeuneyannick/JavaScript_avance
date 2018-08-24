@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>JavaScript par la pratique</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <button id="start">Start</button>
+        <script>
+            //Ici, this vaut l'objet window
+            console.log(this)
+            //Construction classique comme dans d'autres langages de programmation
+            class Vehicle{
+                constructor(brand,model,color){
+                    //Ici this vaut l'instance en cours de création
+                    console.log(`this depuis un constructeur parent`, this); 
+                    console.log(`dans la CLASS Vehicle`);
+                    this.brand = brand; 
+                    this.model = model; 
+                    this.color = color; 
+                }
+            }// fin de Vehicle
+            //Pour faire hériter Vehicle à Bike, on utilise simplement le mot extends comme en PHP par exemple
+
+            class Bike extends Vehicle{
+                constructor(brand,model,color,fullPowered, exhaustPipeBrand){
+                     console.log(`dans la CLASS BIKE`); 
+                     //Pour appeler la classe parente, utiliser la fonction super(); 
+                     super(brand,model,color); 
+                     //this désigne ici l'instance de Bike en train d'être crée
+                     console.log(`depuis un constructeur enfant`, this)
+                     this.fullPowered = fullPowered; 
+                     this.exhaustPipeBrand = exhaustPipeBrand; 
+                }
+
+            };// fin Bike
+            const yamaha = new Bike('Yamaha', 'Ninja-ZX6R', 'Green', true, 'devil')
+
+            const start = document.querySelector('#start'); 
+            start.addEventListener('click' , btnstart)
+
+
+            function btnstart(){
+                console.log(`this depuis le callback`, this); 
+            }; 
+
+            const cessna = {
+                model:`152`, 
+                isFlying: false, 
+                takeOff(){
+                    this.isFlying = true; 
+                    console.log(`this depuis un objet cessna`, this)
+                }
+            }; 
+            cessna.takeOff(); 
+
+            const barman = {
+                name:`Bob`, 
+                bottles:['fanta', 'coca', `lipton`], 
+                InformIsOpen(bottle){
+                    console.log(bottle +'a été ouverte'); 
+                    console.log('this depuis InformIsOpen', this)
+                }, 
+                OpenBottles(){
+                    //pour remédier au bug du this dans la fonction utilisé par le callback, on capture le this dans une variable self
+                    //car un arrow function hérite de la valeur de this de son parent
+                    var self = this// à ce niveau, this est l'objet en instance
+                    console.log(`this depuis OpenBottles `, this); 
+                    this.bottles.forEach((bottle)=>{
+                        //la arrow function qui donne au this utilisé dans le callback la valeur de l'objet en instance
+                    //bug de javascript qui fait que quand on a un this depuis une fonction utilisé par un callback
+                    //il fait référence à window
+                    console.log(`this depuis le callback de this.bottles.forEach()`, this)
+                    // console.log(`self depuis le callback de this.bottles.forEach()`, self)
+                    //this là, reprend la valeur de window anormalement
+                    //self équivaut ici à l'objet en instance
+                    // self.InformIsOpen(bottle); 
+                    //en ES6, on utilise la arrow function pour régler le problème du this qui prend la valeur de l'objet en instance
+                    this.InformIsOpen(bottle)
+                    }); 
+                }
+            }
+
+            const user1 = {
+              civility: `Mme`, 
+              name: {
+                  first:`Marilyn`, 
+                  last:`Monroe`
+              }
+            }; 
+            const user2 = {
+              civility: `Mr`, 
+              name: {
+                  first:`Joseph`, 
+                  last:`Banger`
+              }
+            }; 
+            
+            const course1= {
+              title: 'Apprendre la pudeur', 
+              duration:'1 mois'
+            }; 
+            const course2 = {
+                title: `Apprendre à être organisé`, 
+                duration:'Une semaine'
+            }; 
+
+
+            //
+            function register(course){
+                console.log(this, course);
+                const message = `${this.civility} ${this.name.last} a bien été enregistré${this.civility === `Mme` ? 'e' :''} au cours ${course.title}`; 
+                console.log(message); 
+            }
+
+            //On veut que this dans la fonction register() soit équivalent à un des users pour ça, on utilise la méthode call()
+            //Le premier argument de call() doit être ce à quoi this va se réferer
+            register.call(user1, course2); 
+            
+            //On peut aussi utiliser la methode bind() sur la fonction pour définir this
+            const bangerRegister = register.bind(user1); 
+            bangerRegister(course1);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>JavaScript par la pratique</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <button id="btnSalut"> Clique</button>
+        <script>
+            
+            var BtnSalut = document.querySelector('#btnSalut'); 
+            //ajout d'un eventhandler dans lequel on soumet à levenement click une fonction anonyme qui sera executé, on appelle cette fonction un callback
+            BtnSalut.addEventListener('click', () =>{
+                console.log('Click, click frère !!')
+            })
+            //on fait une fonction quand on a besoin de grouper une portion de code qu'on utilisera souvent 
+            function Salut(firstName){
+                var test = ' Je fais un petit test sur les portées des variables'; 
+                console.log(test); 
+                console.log('Salut '+ firstName); 
+                console.log(BtnSalut); 
+            }
+            var isYoung = true; 
+
+            if(isYoung = true){
+                let nextAction = "Super c'est grave"; 
+            }
+        
+
+            Salut('Soukaina'); //appel de la fonction 
+            //Function expression
+            var sayGoodbye = function(firstName){
+                var result = `Au revoir ${firstName}`; 
+                return result;
+            }
+            
+            //Immediately invoked function expression, une fonction qui s'execute à sa déclaration
+            //IIFE va tomber en désuetude avec ES6 et le let et const
+            var plane = {planeType: 'Airbus'}; 
+
+            (function(){
+               console.log(`IIFE directement appelée`); 
+               // Les IIFE permettent de ne pas polluer les globales scopes
+               var testScope = `crée depuis une IIFE`; 
+               console.log(testScope); 
+               //Tout ce qui est crée dans la IIFE ne fonctionne que dans celle ci
+               plane.country = 'France'; 
+               console.log(plane); 
+            }(plane));  
+
+            {
+                let Yannick = `Yannick est fatigué`
+                console.log(Yannick)
+            }
+            function eat(food,quantity = 3){
+                // paramètres par défaut: si on ne le définit pas le paramètes aura la valeur qu'on lui a assigné 
+              console.log(`Je mange des ${food} ${quantity} fois par jour`); 
+            }
+
+            eat('frites', 9); 
+            eat('patates'); 
+              // Les arrow functions avec ES6 (params, params)=>{}
+              // les arrow functions héritent la valeur this de leurs parents
+
+           // Nouvelle méthodes
+           //pour vérifier la présence d'un mot dans une chaine de caractères, méthode includes()
+            
+           let sentence = `J'ai faim je ne sais pas si je vais aller manger ou pas`; 
+           sentence.includes('faim'); 
+
+        </script>
+    </body>
+</html>
