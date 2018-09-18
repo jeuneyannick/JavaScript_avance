@@ -52,10 +52,10 @@
             const MediumLanguages = TabLanguages.filter((language) => language.level === `Beginner`); 
 
             //Pour créer un tableau, utiliser la méthode Array.of() ES6
-
             let numbers = Array.of(1,2,3); 
             // pour la destructuration du tableau cad récuperer les valeurs du tableau dans des variables, utiliser cette syntaxe
             let [one,two,three] = numbers; 
+            // console.log(one, two,three); 
 
             // la méthode sort()permet de faire un tri par la comparaison des éléments deux par deux suivants la condition qu'on lui met
 
@@ -72,9 +72,7 @@
             function add(){
                 //Array.from transforme en tableaux arguments
                 const args = Array.from(arguments);
-                const doubled = args.map(function(number){
-                  return number * 2; 
-                }); 
+                const doubled = args.map((number => number * 2)); 
                 console.log(doubled); 
                 
             }; 
